@@ -1,35 +1,29 @@
-let coinsPerPage = 100;
-let currentPage = 1;
-let BASE_URL = `https://api.coingecko.com/api/v3`;
-let COIN_DATA_ENDPOINT =
-`/coins/markets?vs_currency=myr&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=true&price_change_percentage=7d`;
-let coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
-let sortOrder = { column: 'market_cap', order: 'DESC' };
+let coinsPerPageMYR = 100;
+let currentPageMYR = 1;
+let BASE_URL_MYR = `https://api.coingecko.com/api/v3`;
+let COIN_DATA_ENDPOINT_MYR =
+`/coins/markets?vs_currency=myr&order=market_cap_desc&per_page=${coinsPerPageMYR}&page=${currentPageMYR}&sparkline=true&price_change_percentage=7d`;
+let coinUrlMYR = BASE_URL_MYR + COIN_DATA_ENDPOINT_MYR;
+let sortOrderMYR = { column: 'market_cap', order: 'DESC' };
 
 $(document).ready( () => {
-  refreshCoinTableBody();
-  fadePrev();
+  refreshCoinTableBodyMYR();
+  fadePrevMYR();
 });
 
-function generateCoinTableBody(data) {
-  let number = Intl.NumberFormat("MYR");
+function generateCoinTableBodyMYR(data) {
+  let number = Intl.NumberFormat("en-US");
   $('#coinTableBody').html(""); //clears body of table
   for (let key in data) {
-    // console.log((data[key].sparkline_in_7d.price).slice(0,7));
-    //
-    // document.querySelectorAll(".sparkline").forEach(function(svg) {
-    //   sparkline.sparkline(svg, (data[key].sparkline_in_7d.price).slice(0,7));
-    // });
-
      $('#coinTableBody').append(
       $('<tr class="content-row"></tr>').append(
         $('<td class="text-center"></td>').text(data[key].market_cap_rank),
         $('<td id="specific" class="text-left"></td>').append(
           $('<div></div>').append(
             `<img src="${data[key].image}" width="25"> ${data[key].name}</a>`)),
-        $('<td class="text-right boldText"></td>').text("$" + number.format(data[key].current_price.toFixed(2))),
-        $('<td class="text-right"></td>').text("$" + number.format(data[key].market_cap)),
-        $('<td class="text-right"></td>').text("$" + number.format(data[key].total_volume)),
+        $('<td class="text-right boldText"></td>').text("RM" + number.format(data[key].current_price.toFixed(2))),
+        $('<td class="text-right"></td>').text("RM" + number.format(data[key].market_cap)),
+        $('<td class="text-right"></td>').text("RM" + number.format(data[key].total_volume)),
         $(`<td class='${data[key].price_change_percentage_24h >= 0 ? "text-success" : "text-danger"}
         text-right'></td>`).text(Number(data[key].price_change_percentage_24h).toFixed(2) + "%"),
         $(`<img class="text-center" src="https://www.coingecko.com/coins/${data[key].market_cap_rank}/sparkline" srcset="https://www.coingecko.com/coins/${data[key].market_cap_rank}/sparkline 1x">`)
@@ -38,8 +32,8 @@ function generateCoinTableBody(data) {
   };
 }
 
-function getCoinData() {
-  return fetch(coinUrl)
+function getCoinDataMYR() {
+  return fetch(coinUrlMYR)
     .then(res => {
       return res.json();
     }).then(data => {
@@ -49,33 +43,33 @@ function getCoinData() {
         });
 };
 
-async function refreshCoinTableBody() {
-  generateCoinTableBody(await getCoinData());
+async function refreshCoinTableBodyMYR() {
+  generateCoinTableBodyMYR(await getCoinDataMYR());
 }
 
 // Pagination
 
 $("#nAnchor").click(async () => {
-  currentPage++;
-  COIN_DATA_ENDPOINT =
-  `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=false`;
-  coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
-  await refreshCoinTableBody();
-  fadePrev();
+  currentPageMYR++;
+  COIN_DATA_ENDPOINT_MYR =
+  `/coins/markets?vs_currency=myr&order=market_cap_desc&per_page=${coinsPerPageMYR}&page=${currentPageMYR}&sparkline=false`;
+  coinUrl = BASE_URL_MYR + COIN_DATA_ENDPOINT_MYR;
+  await refreshCoinTableBodyMYR();
+  fadePrevMYR();
 });
 
 $("#pAnchor").click(async () => {
-  currentPage--;
-  COIN_DATA_ENDPOINT =
-  `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=false`;
-  coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
-  await refreshCoinTableBody();
-  fadePrev();
+  currentPageMYR--;
+  COIN_DATA_ENDPOINT_MYR =
+  `/coins/markets?vs_currency=myr&order=market_cap_desc&per_page=${coinsPerPageMYR}&page=${currentPageMYR}&sparkline=false`;
+  coinUrl = BASE_URL_MYR + COIN_DATA_ENDPOINT_MYR;
+  await refreshCoinTableBodyMYR();
+  fadePrevMYR();
 });
 
-function fadePrev() {
-  $("#pageNumber").text("Page: " + currentPage);
-  if (currentPage == 1) {
+function fadePrevMYR() {
+  $("#pageNumber").text("Page: " + currentPageMYR);
+  if (currentPageMYR == 1) {
     $("#pAnchor").hide();
   } else {
     $("#pAnchor").show();
@@ -88,11 +82,11 @@ function fadePrev() {
    The data comes presorted by Market Cap in descending order as defined in URL endpoint.*/
 
 $('a.sortable').click(() => {
-  sortCoinList($('this').prevObject[0].activeElement.name,
-  getSortOrder($('this').prevObject[0].activeElement.name));
+  sortCoinListMYR($('this').prevObject[0].activeElement.name,
+  getSortOrderMYR($('this').prevObject[0].activeElement.name));
 });
 
-function getSortOrder(columnName) {
+function getSortOrderMYR(columnName) {
   if (sortOrder.column == columnName) {
     if (sortOrder.order == 'DESC') {
       return 'ASC';
@@ -102,26 +96,26 @@ function getSortOrder(columnName) {
   return 'ASC';
 }
 
-async function sortCoinList(headerName, order) {
-  generateCoinTableBody(sortData(await getCoinData(), headerName, order));
+async function sortCoinListMYR(headerName, order) {
+  generateCoinTableBodyMYR(sortDataMYR(await getCoinDataMYR(), headerName, order));
 }
 
-function updateSortOrder(headerName, order) {
+function updateSortOrderMYR(headerName, order) {
   sortOrder.column = headerName;
   sortOrder.order = order;
 }
 
-function sortData(data, headerName, order) {
+function sortDataMYR(data, headerName, order) {
   if (order == 'ASC') {
-    sortAscending(data, headerName);
+    sortAscendingMYR(data, headerName);
   } else {
-    sortDescending(data, headerName);
+    sortDescendingMYR(data, headerName);
   };
-  updateSortOrder(headerName, order);
+  updateSortOrderMYR(headerName, order);
   return data;
 }
 
-function sortAscending(data, headerName) {
+function sortAscendingMYR(data, headerName) {
   data.sort(function (a, b) {
     if (a[headerName] > b[headerName]) {
       return 1;
@@ -134,7 +128,7 @@ function sortAscending(data, headerName) {
   return data;
 }
 
-function sortDescending(data, headerName) {
+function sortDescendingMYR(data, headerName) {
   data.sort(function (a, b) {
     if (a[headerName] > b[headerName]) {
       return -1;

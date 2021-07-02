@@ -1,25 +1,20 @@
-let coinsPerPage = 100;
-let currentPage = 1;
-let BASE_URL = `https://api.coingecko.com/api/v3`;
-let COIN_DATA_ENDPOINT =
-`/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=true&price_change_percentage=7d`;
-let coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
-let sortOrder = { column: 'market_cap', order: 'DESC' };
+let coinsPerPageUSD = 100;
+let currentPageUSD = 1;
+let BASE_URL_USD = `https://api.coingecko.com/api/v3`;
+let COIN_DATA_ENDPOINT_USD =
+`/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPageUSD}&page=${currentPageUSD}&sparkline=true&price_change_percentage=7d`;
+let coinUrlUSD = BASE_URL_USD + COIN_DATA_ENDPOINT_USD;
+let sortOrderUSD = { column: 'market_cap', order: 'DESC' };
 
 $(document).ready( () => {
-  refreshCoinTableBody();
-  fadePrev();
+  refreshCoinTableBodyUSD();
+  fadePrevUSD();
 });
 
-function generateCoinTableBody(data) {
+function generateCoinTableBodyUSD(data) {
   let number = Intl.NumberFormat("en-US");
   $('#coinTableBody').html(""); //clears body of table
   for (let key in data) {
-    // console.log((data[key].sparkline_in_7d.price).slice(0,7));
-    //
-    // document.querySelectorAll(".sparkline").forEach(function(svg) {
-    //   sparkline.sparkline(svg, (data[key].sparkline_in_7d.price).slice(0,7));
-    // });
 
      $('#coinTableBody').append(
       $('<tr class="content-row"></tr>').append(
@@ -40,8 +35,8 @@ function generateCoinTableBody(data) {
 
 // $(`<svg class="sparkline" width="100" height="30" stroke-width="2" stroke="blue" fill="rgba(0, 1, 255, .2)"></svg>`)
 
-function getCoinData() {
-  return fetch(coinUrl)
+function getCoinDataUSD() {
+  return fetch(coinUrlUSD)
     .then(res => {
       return res.json();
     }).then(data => {
@@ -51,33 +46,33 @@ function getCoinData() {
         });
 };
 
-async function refreshCoinTableBody() {
-  generateCoinTableBody(await getCoinData());
+async function refreshCoinTableBodyUSD() {
+  generateCoinTableBodyUSD(await getCoinDataUSD());
 }
 
 // Pagination
 
 $("#nAnchor").click(async () => {
-  currentPage++;
-  COIN_DATA_ENDPOINT =
-  `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=false`;
-  coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
-  await refreshCoinTableBody();
-  fadePrev();
+  currentPageUSD++;
+  COIN_DATA_ENDPOINT_USD =
+  `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPageUSD}&page=${currentPageUSD}&sparkline=false`;
+  coinUrl = BASE_URL_USD + COIN_DATA_ENDPOINT_USD;
+  await refreshCoinTableBodyUSD();
+  fadePrevUSD();
 });
 
 $("#pAnchor").click(async () => {
-  currentPage--;
-  COIN_DATA_ENDPOINT =
-  `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=false`;
-  coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
-  await refreshCoinTableBody();
-  fadePrev();
+  currentPageUSD--;
+  COIN_DATA_ENDPOINT_USD =
+  `/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPageUSD}&page=${currentPageUSD}&sparkline=false`;
+  coinUrl = BASE_URL_USD + COIN_DATA_ENDPOINT_USD;
+  await refreshCoinTableBodyUSD();
+  fadePrevUSD();
 });
 
-function fadePrev() {
-  $("#pageNumber").text("Page: " + currentPage);
-  if (currentPage == 1) {
+function fadePrevUSD() {
+  $("#pageNumber").text("Page: " + currentPageUSD);
+  if (currentPageUSD == 1) {
     $("#pAnchor").hide();
   } else {
     $("#pAnchor").show();
@@ -90,11 +85,11 @@ function fadePrev() {
    The data comes presorted by Market Cap in descending order as defined in URL endpoint.*/
 
 $('a.sortable').click(() => {
-  sortCoinList($('this').prevObject[0].activeElement.name,
-  getSortOrder($('this').prevObject[0].activeElement.name));
+  sortCoinListUSD($('this').prevObject[0].activeElement.name,
+  getSortOrderUSD($('this').prevObject[0].activeElement.name));
 });
 
-function getSortOrder(columnName) {
+function getSortOrderUSD(columnName) {
   if (sortOrder.column == columnName) {
     if (sortOrder.order == 'DESC') {
       return 'ASC';
@@ -104,26 +99,26 @@ function getSortOrder(columnName) {
   return 'ASC';
 }
 
-async function sortCoinList(headerName, order) {
-  generateCoinTableBody(sortData(await getCoinData(), headerName, order));
+async function sortCoinListUSD(headerName, order) {
+  generateCoinTableBodyUSD(sortDataUSD(await getCoinDataUSD(), headerName, order));
 }
 
-function updateSortOrder(headerName, order) {
+function updateSortOrderUSD(headerName, order) {
   sortOrder.column = headerName;
   sortOrder.order = order;
 }
 
-function sortData(data, headerName, order) {
+function sortDataUSD(data, headerName, order) {
   if (order == 'ASC') {
-    sortAscending(data, headerName);
+    sortAscendingUSD(data, headerName);
   } else {
-    sortDescending(data, headerName);
+    sortDescendingUSD(data, headerName);
   };
-  updateSortOrder(headerName, order);
+  updateSortOrderUSD(headerName, order);
   return data;
 }
 
-function sortAscending(data, headerName) {
+function sortAscendingUSD(data, headerName) {
   data.sort(function (a, b) {
     if (a[headerName] > b[headerName]) {
       return 1;
@@ -136,7 +131,7 @@ function sortAscending(data, headerName) {
   return data;
 }
 
-function sortDescending(data, headerName) {
+function sortDescendingusd(data, headerName) {
   data.sort(function (a, b) {
     if (a[headerName] > b[headerName]) {
       return -1;
