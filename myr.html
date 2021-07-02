@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/fnando/sparkline/master/dist/sparkline.js"></script>
+    <title>CoinGicko</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">CoinGicko</h1>
+      <!-- Imprint -->
+    <address align="center">
+      Written by <a href="https://twitter.com/asyr0f" target="_blank">@asyraf</a><br>
+    </address>
+      <hr>
+      <!-- <svg class="sparkline" width="100" height="30" stroke-width="2" stroke="blue" fill="rgba(0, 1, 255, .2)"></svg> -->
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link app-tab-link" href="/">USD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link app-tab-link active" href="/myr.html">MYR</a>
+        </li>
+
+        <!-- Pagination -->
+        <li class="nav-item ml-auto">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+              <li class="page-item">
+                <a id="pageNumber" class="page-link app-page-next" href="#"></a>
+              </li>
+              <li class="page-item">
+                <a id="pAnchor" class="page-link app-page-prev" href="#">Previous 100</a>
+              </li>
+              <li class="page-item">
+                <a id="nAnchor" class="page-link app-page-next" href="#">Next 100</a>
+              </li>
+            </ul>
+          </nav>
+        </li>
+      </ul>
+
+    <!-- Coin Table -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-center" scope="col"><a href="#" class="sortable"
+            name="market_cap_rank">Rank</th>
+          <th class="text-center" scope="col"><a href="#" class="sortable"
+            name="name">Name</th>
+          <th class="text-center" scope="col"><a href="#" class="sortable"
+              name="current_price">Price</th>
+          <th class="text-center" scope="col"><a href="#" class="sortable"
+            name="market_cap">Market Cap</th>
+          <th class="text-center" scope="col"><a href="#" class="sortable"
+            name="total_volume">Volume (24h)</th>
+          <th class="text-right" scope="col"><a href="#" class="sortable"
+            name="price_change_percentage_24h">Price Change (24h)</th>
+          <th class="text-right" scope="col"><a href="#" class="sortable"
+            name="sparkline">Last 7 Days</th>
+        </tr>
+      </thead>
+      <tbody id="coinTableBody">
+      </tbody>
+    </table>
+</div>
+
+    </div>
+    <script src="index.js"></script>
+    <script src="js/sparkline.js"></script>
+  </body>
+</html>
