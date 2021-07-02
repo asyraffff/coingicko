@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
 
   <link rel="stylesheet" href="css/styles.css">
 
+  <script src="https://unpkg.com/stimulus/dist/stimulus.umd.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -38,9 +40,12 @@
         <li class="nav-item">
           <a class="nav-link app-tab-link" href="/myr.html">MYR</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link app-tab-link" href="/favourites.html">Favourites</a>
+        </li>
 
         <!-- Pagination -->
-        <li class="nav-item ml-auto">
+        <!-- <li class="nav-item ml-auto">
           <nav aria-label="Page navigation">
             <ul class="pagination justify-content-end">
               <li class="page-item">
@@ -55,12 +60,14 @@
             </ul>
           </nav>
         </li>
-      </ul>
+      </ul> -->
 
     <!-- Coin Table -->
     <table class="table table-striped">
       <thead>
         <tr>
+          <th class="text-center" scope="col"><a href="#" class="sortable"
+            name="star">Star</th>
           <th class="text-center" scope="col"><a href="#" class="sortable"
             name="market_cap_rank">Rank</th>
           <th class="text-center" scope="col"><a href="#" class="sortable"
