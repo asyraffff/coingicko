@@ -2,7 +2,7 @@ let coinsPerPage = 100;
 let currentPage = 1;
 let BASE_URL = `https://api.coingecko.com/api/v3`;
 let COIN_DATA_ENDPOINT =
-`/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=true&price_change_percentage=7d`;
+`/coins/markets?vs_currency=myr&order=market_cap_desc&per_page=${coinsPerPage}&page=${currentPage}&sparkline=true&price_change_percentage=7d`;
 let coinUrl = BASE_URL + COIN_DATA_ENDPOINT;
 let sortOrder = { column: 'market_cap', order: 'DESC' };
 
@@ -12,14 +12,14 @@ $(document).ready( () => {
 });
 
 function generateCoinTableBody(data) {
-  let number = Intl.NumberFormat("en-US");
+  let number = Intl.NumberFormat("MYR");
   $('#coinTableBody').html(""); //clears body of table
   for (let key in data) {
-    console.log((data[key].sparkline_in_7d.price).slice(0,7));
-
-    document.querySelectorAll(".sparkline").forEach(function(svg) {
-      sparkline.sparkline(svg, (data[key].sparkline_in_7d.price).slice(0,7));
-    });
+    // console.log((data[key].sparkline_in_7d.price).slice(0,7));
+    //
+    // document.querySelectorAll(".sparkline").forEach(function(svg) {
+    //   sparkline.sparkline(svg, (data[key].sparkline_in_7d.price).slice(0,7));
+    // });
 
      $('#coinTableBody').append(
       $('<tr class="content-row"></tr>').append(
@@ -32,7 +32,7 @@ function generateCoinTableBody(data) {
         $('<td class="text-right"></td>').text("$" + number.format(data[key].total_volume)),
         $(`<td class='${data[key].price_change_percentage_24h >= 0 ? "text-success" : "text-danger"}
         text-right'></td>`).text(Number(data[key].price_change_percentage_24h).toFixed(2) + "%"),
-        $(`<svg class="sparkline" width="100" height="30" stroke-width="2" stroke="blue" fill="rgba(0, 1, 255, .2)"></svg>`)
+        $(`<img class="text-center" src="https://www.coingecko.com/coins/${data[key].market_cap_rank}/sparkline" srcset="https://www.coingecko.com/coins/${data[key].market_cap_rank}/sparkline 1x">`)
       )
     );
   };
